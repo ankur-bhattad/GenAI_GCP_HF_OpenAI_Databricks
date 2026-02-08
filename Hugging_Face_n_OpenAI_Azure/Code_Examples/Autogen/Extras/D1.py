@@ -1,6 +1,23 @@
-import os
-import streamlit as st
 import autogen
+from openai import AzureOpenAI
+import streamlit as st
+from dotenv import load_dotenv
+import os
+
+load_dotenv("E:\\Lesson_3_demos\\.env")
+
+# Step 1: Load environment variables (API keys)
+client = AzureOpenAI(
+    api_key=os.getenv("API_KEY"),
+    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+    api_version="2025-12-01-preview",
+)
+
+
+# client = openai.AzureOpenAI(
+#     ...
+# )
+
 import networkx as nx
 import matplotlib.pyplot as plt
 
@@ -13,7 +30,7 @@ support_agent = autogen.AssistantAgent(
         "config_list": [
             {
                 "api_type": "azure",
-                "azure_endpoint": "https://info-mdub1hyj-eastus2.cognitiveservices.azure.com/",
+                "azure_endpoint": "myendpoint",
                 "api_version": "2023-12-01-preview",
                 "api_key": AZURE_API_KEY,
                 "model": "gpt-4o-mini",
@@ -42,8 +59,8 @@ def visualize_conversation(messages):
     plt.close()
 
 # ====== Streamlit UI ======
-st.set_page_config(page_title="Autogen Support Chat", page_icon="💬", layout="wide")
-st.title("💬 AI Support Chat with Visualization")
+st.set_page_config(page_title="Autogen Support Chat", page_icon="--", layout="wide")
+st.title("--AI Support Chat with Visualization")
 
 # Chat input MUST be outside of columns
 user_input = st.chat_input("Type your question...")

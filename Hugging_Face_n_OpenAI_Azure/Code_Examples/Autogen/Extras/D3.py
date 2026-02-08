@@ -1,18 +1,26 @@
 import autogen
-import openai
+from openai import AzureOpenAI
 import streamlit as st
 from dotenv import load_dotenv
 import os
 
-client = openai.AzureOpenAI(
-    api_key="mykey",    
-    api_version="2023-12-01-preview",
-    azure_endpoint="https://info-mdub1hyj-eastus2.cognitiveservices.azure.com/"
+load_dotenv("E:\\Lesson_3_demos\\.env")
+
+# Step 1: Load environment variables (API keys)
+client = AzureOpenAI(
+    api_key=os.getenv("API_KEY"),
+    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+    api_version="2025-12-01-preview",
 )
+
+
+# client = openai.AzureOpenAI(
+#     ...
+# )
 
 # ====== Bot Class ======
 class MultiStepITSupportBot(autogen.AssistantAgent):
-    def __init__(self, name, model="gpt-4o-mini"):
+    def __init__(self, name, model="gpt-4.1"):
         super().__init__(name=name)
         self.model = model
 
